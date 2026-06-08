@@ -16,67 +16,49 @@ Applies the official Italian public administration visual identity — colors, t
 
 ```bash
 composer require robyconte/filament-italia
-```
-
-Then run the install command:
-
-```bash
 php artisan filament-italia:install
+npm run build
 ```
 
-This publishes the config file and checks your existing setup.
+The install command publishes the config file and a ready-to-use theme CSS entry point to `resources/css/filament-italia/theme.css`.
 
-### Manual Setup
+### Panel Provider
 
-If you prefer to configure manually, follow these three steps.
-
-#### 1. Theme CSS
-
-Create or edit your panel's theme CSS file (e.g. `resources/css/filament/company/theme.css`) with this exact import order:
-
-```css
-@import '../../../../vendor/robyconte/filament-italia/resources/css/fonts.css';
-@import 'tailwindcss';
-@import '../../../../vendor/filament/filament/resources/css/theme.css';
-@import '../../../../vendor/robyconte/filament-italia/resources/css/theme.css';
-@import '../../../../vendor/robyconte/filament-italia/resources/css/overrides.css';
-```
-
-Import order matters — the fonts must load before Tailwind processes the CSS.
-
-#### 2. Panel Provider
-
-In your `PanelProvider`, apply the theme configuration:
+Use `FilamentItaliaTheme::applyTo()` in your `PanelProvider` to apply the theme with a single call:
 
 ```php
-use Filament\FontProviders\LocalFontProvider;
 use RoBYCoNTe\FilamentItalia\FilamentItaliaTheme;
 
 public function panel(Panel $panel): Panel
 {
-    return $panel
-        // ...
-        ->viteTheme('resources/css/filament/company/theme.css')
-        ->colors([
-            'primary' => FilamentItaliaTheme::generateColorPalette(
-                config('filament-italia.primary_color')
-            ),
-        ])
-        ->darkMode(false)
-        ->defaultThemeMode(\Filament\Enums\ThemeMode::Light)
-        ->font('Titillium Web', provider: LocalFontProvider::class)
-        ->monoFont('Roboto Mono', provider: LocalFontProvider::class)
-        ->serifFont('Lora', provider: LocalFontProvider::class);
+    return FilamentItaliaTheme::applyTo(
+        $panel
+            ->id('admin')
+            ->path('admin')
+            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
+            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
+            ->middleware([
+                // ...
+            ])
+    );
 }
 ```
 
-> **Important:** This theme is designed for **light mode only**. Always set `->darkMode(false)`.
+`applyTo()` automatically configures:
+- Theme CSS entry point (`->viteTheme()`)
+- Primary color from config (`->colors()`)
+- Light mode only (`->darkMode(false)`)
+- Self-hosted fonts: Titillium Web, Roboto Mono, Lora (`->font()`, `->monoFont()`, `->serifFont()`)
 
-#### 3. Build Assets
+### Advanced: Custom Theme CSS
+
+If you need to add custom `@source` directives or override specific styles, publish the theme CSS and edit it:
 
 ```bash
-npm run build
+php artisan vendor:publish --tag=filament-italia-theme
 ```
+
+Then edit `resources/css/filament-italia/theme.css` and add your customizations after the package imports.
 
 ## Configuration
 

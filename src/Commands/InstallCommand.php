@@ -3,7 +3,6 @@
 namespace RoBYCoNTe\FilamentItalia\Commands;
 
 use Illuminate\Console\Command;
-use RoBYCoNTe\FilamentItalia\FilamentItaliaTheme;
 
 class InstallCommand extends Command
 {
@@ -16,16 +15,16 @@ class InstallCommand extends Command
         $this->info('Installing Filament Italia theme...');
 
         $this->publishConfig();
-        $this->updateThemeCss();
+        $this->publishThemeCss();
         $this->updatePanelProvider();
 
         $this->newLine();
         $this->components->info('Filament Italia theme installed successfully!');
         $this->newLine();
         $this->components->bulletList([
+            'Add <fg=yellow>FilamentItaliaTheme::applyTo($panel)</> to your PanelProvider.',
             'Run <fg=yellow>npm run build</> to compile assets.',
             'Adjust the primary color in <fg=yellow>config/filament-italia.php</> if needed.',
-            'Set <fg=yellow>FILAMENT_ITALIA_PRIMARY_COLOR</> in <fg=yellow>.env</> for environment-specific colors.',
         ]);
 
         return self::SUCCESS;
@@ -40,39 +39,12 @@ class InstallCommand extends Command
         });
     }
 
-    private function updateThemeCss(): void
+    private function publishThemeCss(): void
     {
-        $this->components->task('Checking theme CSS file', function () {
-            $themePath = resource_path('css/filament/company/theme.css');
-
-            if (file_exists($themePath)) {
-                $content = file_get_contents($themePath);
-
-                if (str_contains($content, 'filament-italia')) {
-                    $this->components->twoColumnDetail(
-                        'Theme CSS',
-                        '<fg=green>Already configured</>'
-                    );
-
-                    return;
-                }
-            }
-
-            $this->components->twoColumnDetail(
-                'Theme CSS',
-                '<fg=yellow>Manual setup required</>'
-            );
-
-            $this->newLine();
-            $this->components->info('Add these imports to your theme CSS file:');
-            $this->line('');
-            $this->line('  <fg=cyan>// resources/css/filament/company/theme.css</>');
-            $this->line('');
-            $this->line("  <fg=green>@import '../../../../vendor/robyconte/filament-italia/resources/css/fonts.css';</>");
-            $this->line("  <fg=green>@import 'tailwindcss';</>");
-            $this->line("  <fg=green>@import '../../../../vendor/filament/filament/resources/css/theme.css';</>");
-            $this->line("  <fg=green>@import '../../../../vendor/robyconte/filament-italia/resources/css/theme.css';</>");
-            $this->line("  <fg=green>@import '../../../../vendor/robyconte/filament-italia/resources/css/overrides.css';</>");
+        $this->components->task('Publishing theme CSS', function () {
+            $this->callSilent('vendor:publish', [
+                '--tag' => 'filament-italia-theme',
+            ]);
         });
     }
 
@@ -107,14 +79,16 @@ class InstallCommand extends Command
             );
 
             $this->newLine();
-            $this->components->info('Add these configurations to your panel provider:');
+            $this->components->info('Replace your panel configuration with:');
             $this->line('');
-            $this->line('  <fg=cyan>// In your panel() method:</>');
-            $this->line("  <fg=green>->colors(['primary' => \\RoBYCoNTe\\FilamentItalia\\FilamentItaliaTheme::generateColorPalette(config('filament-italia.primary_color'))])</>");
-            $this->line("  <fg=green>->darkMode(false)</>");
-            $this->line("  <fg=green>->font('Titillium Web', provider: \\Filament\\FontProviders\\LocalFontProvider::class)</>");
-            $this->line("  <fg=green>->monoFont('Roboto Mono', provider: \\Filament\\FontProviders\\LocalFontProvider::class)</>");
-            $this->line("  <fg=green>->serifFont('Lora', provider: \\Filament\\FontProviders\\LocalFontProvider::class)</>");
+            $this->line('  <fg=cyan>use RoBYCoNTe\FilamentItalia\FilamentItaliaTheme;</>');
+            $this->line('');
+            $this->line('  <fg=green>return FilamentItaliaTheme::applyTo(</>');
+            $this->line('      <fg=green>$panel->id(\'admin\')->path(\'admin\')</>');
+            $this->line('          ->discoverResources(...)</>');
+            $this->line('          ->discoverPages(...)</>');
+            $this->line('          ->middleware([...])</>');
+            $this->line('  <fg=green>);</>');
         });
     }
 }

@@ -2,21 +2,43 @@
 
 namespace RoBYCoNTe\FilamentItalia;
 
+use Filament\Enums\ThemeMode;
+use Filament\FontProviders\LocalFontProvider;
+use Filament\Panel;
+
 class FilamentItaliaTheme
 {
-    public static function themePath(): string
+    /**
+     * Path to the published theme CSS entry point, relative to the project root.
+     * Used with Filament's ->viteTheme() method.
+     */
+    public static function themeCssPath(): string
     {
-        return 'vendor/robyconte/filament-italia/resources/css/theme.css';
+        return 'resources/css/filament-italia/theme.css';
     }
 
-    public static function overridesPath(): string
+    /**
+     * Applies all Italia theme configurations to a Filament panel:
+     *   - Theme CSS (viteTheme)
+     *   - Primary color from config
+     *   - Light mode only
+     *   - Self-hosted fonts (Titillium Web, Roboto Mono, Lora)
+     *
+     * Usage in your PanelProvider:
+     *   return FilamentItaliaTheme::applyTo($panel->id('admin')->path('admin'));
+     */
+    public static function applyTo(Panel $panel): Panel
     {
-        return 'vendor/robyconte/filament-italia/resources/css/overrides.css';
-    }
-
-    public static function fontsPath(): string
-    {
-        return 'vendor/robyconte/filament-italia/resources/css/fonts.css';
+        return $panel
+            ->viteTheme(static::themeCssPath())
+            ->colors([
+                'primary' => static::generateColorPalette(config('filament-italia.primary_color')),
+            ])
+            ->darkMode(false)
+            ->defaultThemeMode(ThemeMode::Light)
+            ->font('Titillium Web', provider: LocalFontProvider::class)
+            ->monoFont('Roboto Mono', provider: LocalFontProvider::class)
+            ->serifFont('Lora', provider: LocalFontProvider::class);
     }
 
     /**

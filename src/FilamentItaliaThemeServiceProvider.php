@@ -16,7 +16,7 @@ class FilamentItaliaThemeServiceProvider extends PackageServiceProvider
         $package
             ->name(static::$name)
             ->hasConfigFile()
-            ->hasCommand(Commands\InstallCommand::class)
+            ->hasCommand(InstallCommand::class)
             ->hasInstallCommand(function (PackageInstallCommand $command) {
                 $command
                     ->publishConfigFile()
@@ -26,6 +26,8 @@ class FilamentItaliaThemeServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
-        //
+        $this->publishes([
+            $this->package->basePath('/../resources/stubs/theme.css') => resource_path('css/filament-italia/theme.css'),
+        ], 'filament-italia-theme');
     }
 }
