@@ -1,0 +1,45 @@
+{
+    "name": "robyconte/filament-italia",
+    "description": "Filament admin panel theme based on the .italia Design System by AGID",
+    "keywords": [
+        "filament",
+        "laravel",
+        "theme",
+        "agid",
+        "italia-design-system",
+        "pa"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Roberto Conte Rosito",
+            "email": "roberto.conterosito@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "filament/filament": "^5.0",
+        "spatie/laravel-package-tools": "^1.16"
+    },
+    "autoload": {
+        "psr-4": {
+            "RoBYCoNTe\\FilamentItalia\\": "src/"
+        }
+    },
+    "scripts": {
+        "pint": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "RoBYCoNTe\\FilamentItalia\\FilamentItaliaThemeServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

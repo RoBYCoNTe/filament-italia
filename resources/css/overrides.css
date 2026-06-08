@@ -1,0 +1,561 @@
+/*
+|--------------------------------------------------------------------------
+| Component Overrides — AGID .italia Design System
+|--------------------------------------------------------------------------
+|
+| Un-layered CSS rules that override Filament's structural component styles
+| to match the AGID .italia Design System visual identity.
+|
+| Since Filament component CSS lives inside @layer components, these
+| un-layered rules always win regardless of specificity. Doubled selectors
+| (e.g. .fi-topbar.fi-topbar) provide additional insurance.
+|
+| Phases implemented:
+|   1. Accessibility & critical fixes (focus-visible, contrast, links, tabs)
+|   2. Border-radius normalization (rounded-xl → AGID radii)
+|   3. Buttons (active state, transitions, shadows, groups)
+|   4. Form controls (focus ring, file upload)
+|   5. Tables & pagination
+|   6. Refinements (breadcrumbs, scrollbar, badges)
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Global
+|--------------------------------------------------------------------------
+*/
+
+.fi-body.fi-body {
+    font-family: 'Titillium Web', ui-sans-serif, system-ui, sans-serif;
+    color: var(--color-gray-800);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Topbar — AGID primary blue header nav
+|--------------------------------------------------------------------------
+*/
+
+.fi-topbar.fi-topbar {
+    background-color: var(--color-primary-600);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    --tw-ring-color: transparent;
+}
+
+.fi-topbar .fi-topbar-item-btn {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.fi-topbar .fi-topbar-item-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.fi-topbar .fi-topbar-item.fi-active .fi-topbar-item-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.fi-topbar .fi-topbar-item-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.fi-topbar .fi-topbar-item.fi-active .fi-topbar-item-label {
+    color: #fff;
+}
+
+.fi-topbar .fi-topbar-item-btn > .fi-icon {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-topbar .fi-topbar-item-btn:hover > .fi-icon {
+    color: #fff;
+}
+
+.fi-topbar .fi-topbar-item.fi-active .fi-topbar-item-btn > .fi-icon {
+    color: #fff;
+}
+
+.fi-topbar .fi-topbar-item-btn > .fi-badge {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.fi-topbar .fi-user-menu-trigger {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fi-topbar .fi-user-menu-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fi-topbar .fi-database-notifications-trigger {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-topbar .fi-database-notifications-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fi-topbar .fi-global-search-trigger {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-topbar .fi-global-search-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fi-topbar .fi-icon-btn {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-topbar .fi-icon-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fi-topbar .fi-logo {
+    color: #fff;
+}
+
+/* Topbar focus-visible indicators (a11y — white outline on blue bg) */
+.fi-topbar .fi-topbar-item-btn:focus-visible {
+    background-color: rgba(255, 255, 255, 0.2);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -2px;
+    color: #fff;
+}
+
+.fi-topbar .fi-icon-btn:focus-visible,
+.fi-topbar .fi-user-menu-trigger:focus-visible,
+.fi-topbar .fi-database-notifications-trigger:focus-visible,
+.fi-topbar .fi-global-search-trigger:focus-visible,
+.fi-topbar .fi-tenant-menu-trigger:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -2px;
+    color: #fff;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tenant Menu (company selector)
+|--------------------------------------------------------------------------
+*/
+
+.fi-topbar .fi-tenant-menu-trigger {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fi-topbar .fi-tenant-menu-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fi-topbar .fi-tenant-menu-trigger-tenant-name {
+    color: #fff;
+}
+
+.fi-topbar .fi-tenant-menu-trigger-current-tenant-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-topbar .fi-tenant-menu-trigger .fi-icon {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-topbar .fi-tenant-menu-trigger:hover .fi-icon {
+    color: #fff;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Sidebar — AGID dark blue
+|--------------------------------------------------------------------------
+*/
+
+.fi-sidebar.fi-sidebar-open {
+    background-color: var(--color-primary-800);
+}
+
+.fi-body-has-topbar .fi-sidebar-header {
+    background-color: var(--color-primary-900);
+    color: #fff;
+}
+
+.fi-sidebar .fi-sidebar-item-label {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.fi-sidebar .fi-sidebar-item-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fi-sidebar .fi-sidebar-item-btn:hover .fi-sidebar-item-label {
+    color: #fff;
+}
+
+.fi-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.fi-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-sidebar-item-label {
+    color: #fff;
+}
+
+.fi-sidebar .fi-sidebar-item.fi-active > .fi-sidebar-item-btn > .fi-icon {
+    color: #fff;
+}
+
+.fi-sidebar .fi-sidebar-item-btn > .fi-icon {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-sidebar .fi-sidebar-item-btn:hover > .fi-icon {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.fi-sidebar .fi-sidebar-group-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-sidebar .fi-sidebar-group-dropdown-trigger-btn .fi-icon {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-sidebar .fi-sidebar-item-grouped-border-part {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.fi-sidebar .fi-sidebar-item-grouped-border-part-not-first,
+.fi-sidebar .fi-sidebar-item-grouped-border-part-not-last {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.fi-sidebar .fi-icon {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-sidebar .fi-user-menu-trigger {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fi-sidebar .fi-user-menu-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fi-sidebar .fi-database-notifications-trigger {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fi-sidebar .fi-database-notifications-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fi-sidebar .fi-tenant-menu-trigger {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.fi-sidebar .fi-tenant-menu-trigger:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.fi-sidebar .fi-tenant-menu-trigger-tenant-name {
+    color: #fff;
+}
+
+.fi-sidebar .fi-tenant-menu-trigger-current-tenant-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-sidebar .fi-icon-btn {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.fi-sidebar .fi-icon-btn:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Sidebar scrollbar */
+.fi-sidebar .fi-sidebar-nav {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Sidebar badges on dark background */
+.fi-sidebar .fi-badge {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    --tw-ring-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Sidebar focus-visible indicators (a11y — white outline on dark bg) */
+.fi-sidebar .fi-sidebar-item-btn:focus-visible {
+    background-color: rgba(255, 255, 255, 0.15);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -2px;
+    color: #fff;
+}
+
+.fi-sidebar .fi-icon-btn:focus-visible,
+.fi-sidebar .fi-user-menu-trigger:focus-visible,
+.fi-sidebar .fi-database-notifications-trigger:focus-visible,
+.fi-sidebar .fi-tenant-menu-trigger:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: -2px;
+    color: #fff;
+}
+
+/* Sidebar close overlay */
+.fi-sidebar-close-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Links — AGID primary color
+|--------------------------------------------------------------------------
+*/
+
+.fi-link.fi-link:not(.fi-colored) {
+    color: var(--color-primary-600);
+}
+
+.fi-link.fi-link:not(.fi-colored):hover {
+    color: var(--color-primary-700);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tabs — AGID underline style
+|--------------------------------------------------------------------------
+*/
+
+.fi-tabs.fi-tabs:not(.fi-contained) {
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    --tw-ring-color: transparent;
+    border-bottom: 2px solid var(--color-gray-200);
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.fi-tabs.fi-tabs:not(.fi-contained) .fi-tabs-item {
+    border-radius: 0;
+}
+
+.fi-tabs .fi-tabs-item.fi-active {
+    box-shadow: inset 0 -2px 0 0 var(--color-primary-600);
+}
+
+.fi-tabs .fi-tabs-item.fi-active .fi-tabs-item-label {
+    color: var(--color-primary-600);
+    font-weight: 600;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Buttons — AGID styling
+|--------------------------------------------------------------------------
+*/
+
+.fi-btn.fi-btn {
+    font-weight: 600;
+    transition-duration: 150ms;
+}
+
+.fi-btn.fi-btn:active:not(:disabled) {
+    filter: brightness(0.92);
+}
+
+.fi-btn.fi-btn:disabled {
+    opacity: 0.5;
+}
+
+.fi-btn.fi-btn.fi-outlined {
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+.fi-btn-group.fi-btn-group {
+    border-radius: var(--radius-lg);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Input Wrapper — AGID border radius & focus
+|--------------------------------------------------------------------------
+*/
+
+.fi-input-wrp.fi-input-wrp {
+    border-radius: var(--radius-sm);
+}
+
+.fi-input-wrp.fi-input-wrp:has(.fi-fo-field-wrp-error-message) {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Select Input
+|--------------------------------------------------------------------------
+*/
+
+.fi-select-input-btn.fi-select-input-btn {
+    border-radius: var(--radius-sm);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Section / Cards — AGID subtle styling
+|--------------------------------------------------------------------------
+*/
+
+.fi-section:not(.fi-section-not-contained):not(.fi-aside) {
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Table — AGID styling
+|--------------------------------------------------------------------------
+*/
+
+.fi-ta-ctn.fi-ta-ctn {
+    border-radius: var(--radius-md);
+}
+
+.fi-ta-header-cell.fi-ta-header-cell {
+    font-weight: 600;
+    border-bottom: 2px solid var(--color-gray-200);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Field Labels
+|--------------------------------------------------------------------------
+*/
+
+.fi-fo-field-label-content {
+    font-weight: 600;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Border Radius Normalization — rounded-xl (12px) → AGID radii
+|--------------------------------------------------------------------------
+*/
+
+.fi-modal-window.fi-modal-window {
+    border-radius: var(--radius-lg);
+}
+
+.fi-no-notification:not(.fi-inline) {
+    border-radius: var(--radius-lg);
+}
+
+.fi-wi-stats-overview-stat.fi-wi-stats-overview-stat {
+    border-radius: var(--radius-lg);
+}
+
+.fi-fo-repeater-item.fi-fo-repeater-item,
+.fi-fo-builder-item.fi-fo-builder-item {
+    border-radius: var(--radius-lg);
+}
+
+.fi-simple-main.fi-simple-main {
+    border-radius: var(--radius-lg);
+}
+
+.fi-callout.fi-callout {
+    border-radius: var(--radius-lg);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Pagination — AGID active state
+|--------------------------------------------------------------------------
+*/
+
+.fi-pagination-item.fi-active .fi-pagination-item-btn {
+    background-color: var(--color-primary-50);
+    color: var(--color-primary-700);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Breadcrumbs — AGID primary hover
+|--------------------------------------------------------------------------
+*/
+
+.fi-breadcrumbs .fi-breadcrumbs-item a:hover {
+    color: var(--color-primary-600);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Date Picker — AGID border radius
+|--------------------------------------------------------------------------
+*/
+
+.fi-fo-date-time-picker .fi-fo-date-time-picker-panel {
+    border-radius: var(--radius-lg);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Rich Editor / Markdown Editor — AGID toolbar
+|--------------------------------------------------------------------------
+*/
+
+.fi-fo-rich-editor .fi-fo-rich-editor-toolbar {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.fi-fo-rich-editor .fi-fo-rich-editor-content {
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.fi-fo-markdown-editor .EasyMDEContainer .editor-toolbar {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| File Upload (FilePond) — AGID border radius
+|--------------------------------------------------------------------------
+*/
+
+.fi-fo-file-upload .filepond--root {
+    border-radius: var(--radius-sm);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Empty State — AGID icon background
+|--------------------------------------------------------------------------
+*/
+
+.fi-empty-state-icon-ctn {
+    background-color: var(--color-primary-50);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Dropdowns — AGID border radius
+|--------------------------------------------------------------------------
+*/
+
+.fi-dropdown.fi-dropdown {
+    border-radius: var(--radius-sm);
+}

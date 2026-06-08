@@ -1,0 +1,102 @@
+/*
+|--------------------------------------------------------------------------
+| Self-hosted Fonts — AGID .italia Design System
+|--------------------------------------------------------------------------
+|
+| @font-face declarations for Titillium Web, Lora, and Roboto Mono.
+| Font files are served locally — no external CDN dependency.
+|
+| If you need extended character support (cyrillic, greek, etc.),
+| replace the woff2 files with full-subset versions from Google Fonts.
+*/
+
+/* Titillium Web — Primary sans-serif */
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url('../fonts/TitilliumWeb-200.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../fonts/TitilliumWeb-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/TitilliumWeb-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/TitilliumWeb-600.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/TitilliumWeb-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Titillium Web';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/TitilliumWeb-400italic.woff2') format('woff2');
+}
+
+/* Lora — Serif */
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/Lora-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Lora';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/Lora-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Lora';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/Lora-400italic.woff2') format('woff2');
+}
+
+/* Roboto Mono — Monospace */
+@font-face {
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/RobotoMono-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Roboto Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/RobotoMono-500.woff2') format('woff2');
+}
