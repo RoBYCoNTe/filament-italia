@@ -103,7 +103,8 @@ class FilamentItaliaTheme
         if ($s === 0.0) {
             $v = (int) round($l * 255);
 
-            return str_pad(dechex($v), 2, '0', STR_PAD_LEFT)
+            return '#'
+                .str_pad(dechex($v), 2, '0', STR_PAD_LEFT)
                 .str_pad(dechex($v), 2, '0', STR_PAD_LEFT)
                 .str_pad(dechex($v), 2, '0', STR_PAD_LEFT);
         }
@@ -115,7 +116,8 @@ class FilamentItaliaTheme
         $g = self::hueToRgb($p, $q, $h);
         $b = self::hueToRgb($p, $q, $h - 1 / 3);
 
-        return str_pad(dechex((int) round($r * 255)), 2, '0', STR_PAD_LEFT)
+        return '#'
+            .str_pad(dechex((int) round($r * 255)), 2, '0', STR_PAD_LEFT)
             .str_pad(dechex((int) round($g * 255)), 2, '0', STR_PAD_LEFT)
             .str_pad(dechex((int) round($b * 255)), 2, '0', STR_PAD_LEFT);
     }
