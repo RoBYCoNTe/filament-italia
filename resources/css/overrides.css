@@ -19,6 +19,9 @@
 |   6. Refinements (breadcrumbs, scrollbar, badges)
 */
 
+@import './typography.css';
+@import './components.css';
+
 /*
 |--------------------------------------------------------------------------
 | Global
@@ -27,7 +30,6 @@
 
 .fi-body.fi-body {
     font-family: 'Titillium Web', ui-sans-serif, system-ui, sans-serif;
-    color: var(--color-gray-800);
 }
 
 /*
@@ -371,8 +373,20 @@
     border-radius: 0;
 }
 
+/*
+| Bootstrap Italia does not paint the active tab: only the label turns blue
+| and a 3px accent appears under it. Filament gives the active and hovered tab
+| a light gray background, so we take it away.
+*/
+.fi-tabs .fi-tabs-item,
+.fi-tabs .fi-tabs-item:hover,
+.fi-tabs .fi-tabs-item:focus-visible,
 .fi-tabs .fi-tabs-item.fi-active {
-    box-shadow: inset 0 -2px 0 0 var(--color-primary-600);
+    background-color: transparent;
+}
+
+.fi-tabs .fi-tabs-item.fi-active {
+    box-shadow: inset 0 -3px 0 0 var(--color-primary-600);
 }
 
 .fi-tabs .fi-tabs-item.fi-active .fi-tabs-item-label {
@@ -411,48 +425,22 @@
 
 /*
 |--------------------------------------------------------------------------
-| Input Wrapper — AGID border radius & focus
+| Input Wrapper — the field shape (radius, underline, focus) is owned by
+| components.css; here only the error state is squared off, so the message
+| below reads as part of the field.
 |--------------------------------------------------------------------------
 */
-
-.fi-input-wrp.fi-input-wrp {
-    border-radius: var(--radius-sm);
-}
 
 .fi-input-wrp.fi-input-wrp:has(.fi-fo-field-wrp-error-message) {
-    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    border-radius: 0;
 }
 
 /*
 |--------------------------------------------------------------------------
-| Select Input
+| Table header — AGID weight and separator (the container surface is owned by
+| components.css)
 |--------------------------------------------------------------------------
 */
-
-.fi-select-input-btn.fi-select-input-btn {
-    border-radius: var(--radius-sm);
-}
-
-/*
-|--------------------------------------------------------------------------
-| Section / Cards — AGID subtle styling
-|--------------------------------------------------------------------------
-*/
-
-.fi-section:not(.fi-section-not-contained):not(.fi-aside) {
-    border-radius: var(--radius-md);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-
-/*
-|--------------------------------------------------------------------------
-| Table — AGID styling
-|--------------------------------------------------------------------------
-*/
-
-.fi-ta-ctn.fi-ta-ctn {
-    border-radius: var(--radius-md);
-}
 
 .fi-ta-header-cell.fi-ta-header-cell {
     font-weight: 600;
@@ -461,22 +449,22 @@
 
 /*
 |--------------------------------------------------------------------------
-| Field Labels
-|--------------------------------------------------------------------------
-*/
-
-.fi-fo-field-label-content {
-    font-weight: 600;
-}
-
-/*
-|--------------------------------------------------------------------------
 | Border Radius Normalization — rounded-xl (12px) → AGID radii
 |--------------------------------------------------------------------------
 */
 
+/*
+| Un modale normale ha gli angoli tondi; la slide-over no: e' ancorata al bordo
+| e deve restare dritta (Filament, di suo, il raggio lo da' solo al modale
+| centrale — `:not(.fi-modal-slide-over)`).
+*/
 .fi-modal-window.fi-modal-window {
     border-radius: var(--radius-lg);
+}
+
+.fi-modal.fi-modal-slide-over > .fi-modal-window-ctn > .fi-modal-window.fi-modal-window,
+.fi-modal.fi-width-screen > .fi-modal-window-ctn > .fi-modal-window.fi-modal-window {
+    border-radius: 0;
 }
 
 .fi-no-notification:not(.fi-inline) {
@@ -496,20 +484,13 @@
     border-radius: var(--radius-lg);
 }
 
-.fi-callout.fi-callout {
-    border-radius: var(--radius-lg);
-}
-
 /*
 |--------------------------------------------------------------------------
 | Pagination — AGID active state
 |--------------------------------------------------------------------------
 */
 
-.fi-pagination-item.fi-active .fi-pagination-item-btn {
-    background-color: var(--color-primary-50);
-    color: var(--color-primary-700);
-}
+/* L'aspetto della paginazione (.italia) e' in components.css. */
 
 /*
 |--------------------------------------------------------------------------
@@ -551,12 +532,90 @@
 
 /*
 |--------------------------------------------------------------------------
-| File Upload (FilePond) — AGID border radius
+| File upload (FilePond) — AGID
 |--------------------------------------------------------------------------
+|
+| FilePond paints its own dark panel (#64605e) under white icons, so an
+| attachment looks like nothing else in the form. Here it wears the border and
+| the radius of the other fields and the colours of the theme, both for a
+| single file and for many. The drop label keeps the primary of a link.
 */
 
 .fi-fo-file-upload .filepond--root {
     border-radius: var(--radius-sm);
+}
+
+/* The attachment is a row of the same field, not a box of its own: a single
+   divider separates it from the label above and from the attachment before it,
+   so the borders do not double. The item keeps FilePond's measured height and
+   the panel fills it, only its sides stay open inside the container. */
+.fi-fo-file-upload .filepond--item-panel {
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    top: 0;
+    bottom: 0;
+    height: auto;
+    transition: none;
+}
+
+/* The divider lives on the row, not on the panel: the panel is positioned by
+   FilePond and its border is not reliable inside the form. */
+.fi-fo-file-upload .filepond--item {
+    border-top: 1px solid var(--color-gray-200, #e5e5e5);
+}
+
+/* A whisper of colour says how the upload went, without drawing a second box. */
+.fi-fo-file-upload [data-filepond-item-state='processing-complete'] .filepond--item-panel {
+    background-color: var(--color-success-50, #f0fdf4);
+}
+
+.fi-fo-file-upload [data-filepond-item-state*='error'] .filepond--item-panel,
+.fi-fo-file-upload [data-filepond-item-state*='invalid'] .filepond--item-panel {
+    background-color: var(--color-danger-50, #fef2f2);
+}
+
+.fi-fo-file-upload .filepond--item:hover .filepond--item-panel {
+    background-color: var(--color-gray-50, #fafafa);
+}
+
+/* FilePond writes in white because its panel was dark: here the row is light, so
+   the whole file (status message included) takes the neutral of the theme. */
+.fi-fo-file-upload .filepond--file {
+    color: var(--color-gray-900);
+}
+
+/* One attachment and many: the vertical rhythm is FilePond's, the colour is ours. */
+.fi-fo-file-upload .filepond--file-info-main {
+    color: var(--color-gray-900);
+    font-weight: 500;
+}
+
+.fi-fo-file-upload .filepond--file-info-sub,
+.fi-fo-file-upload .filepond--file-status-sub {
+    color: var(--color-gray-500);
+    opacity: 1;
+}
+
+/* The icons and the round buttons ride on the light panel: the white of FilePond
+   would vanish here, so they take the neutral slate and light up on hover. */
+.fi-fo-file-upload .filepond--download-icon,
+.fi-fo-file-upload .filepond--open-icon {
+    background-color: var(--color-info-600);
+}
+
+.fi-fo-file-upload .filepond--download-icon:hover,
+.fi-fo-file-upload .filepond--open-icon:hover {
+    background-color: var(--color-primary-600);
+}
+
+.fi-fo-file-upload .filepond--file-action-button {
+    background-color: var(--color-info-600);
+}
+
+.fi-fo-file-upload .filepond--file-action-button:hover,
+.fi-fo-file-upload .filepond--file-action-button:focus {
+    background-color: var(--color-primary-700);
 }
 
 /*

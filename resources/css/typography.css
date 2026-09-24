@@ -1,0 +1,179 @@
+/*
+|--------------------------------------------------------------------------
+| Typography — the AGID .italia scale, mapped onto Filament components
+|--------------------------------------------------------------------------
+|
+| Filament keeps Tailwind's compact type scale: body text is 0.875rem, page
+| headings top out at 1.875rem, and buttons and fields sit at 0.875rem. The
+| .italia Design System uses a larger, calmer scale — body 1rem/1.5, h1 2.5rem
+| at weight 500, buttons and fields 1rem — so without this layer the panel
+| looks like a different product next to the public pages built with Bootstrap
+| Italia, even though it already wears the .italia colours and fonts.
+|
+| These rules are un-layered: Filament component styles live inside
+| @layer components, and un-layered CSS always wins over a layer, so no
+| !important and no doubled selectors are needed to beat them.
+|
+| The values come from Bootstrap Italia 2.x (.btn, .form-control, .table, h1..h6)
+| and from the .italia typography tokens:
+|   https://designers.italia.it/design-system/fondamenti/tipografia/
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Body — 1rem / 1.5, near-black
+|--------------------------------------------------------------------------
+*/
+
+.fi-body.fi-body {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #1a1a1a;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Page header — BI h1: 2.5rem, weight 500, line-height 1.2, tracking -1px
+|--------------------------------------------------------------------------
+*/
+
+.fi-header-heading {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: #1a1a1a;
+}
+
+@media (min-width: 768px) {
+    .fi-header-heading {
+        font-size: 2.5rem;
+    }
+}
+
+.fi-header-subheading {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #5c6f82;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Section / card headings — Bootstrap Italia gives h1-h3 and .card-title
+| weight 700 (h4-h6 weight 600)
+|--------------------------------------------------------------------------
+*/
+
+.fi-section-header-heading {
+    font-size: 1.25rem;
+    line-height: 1.5;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.fi-section-header-description {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #5c6f82;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Buttons — BI .btn: 1rem / weight 600, radius 4px
+|--------------------------------------------------------------------------
+*/
+
+.fi-btn.fi-btn {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 600;
+    border-radius: 4px;
+}
+
+.fi-btn.fi-btn.fi-size-xs {
+    font-size: 0.75rem;
+}
+
+.fi-btn.fi-btn.fi-size-sm {
+    font-size: 0.875rem;
+}
+
+.fi-btn.fi-btn.fi-size-lg {
+    font-size: 1.25rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Form controls — BI .form-control: 1rem / 1.5, min-height 2.5rem, radius 4px
+|--------------------------------------------------------------------------
+*/
+
+.fi-input.fi-input,
+.fi-select-input.fi-select-input {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.fi-input-wrp.fi-input-wrp {
+    min-height: 2.5rem;
+}
+
+.fi-fo-field-label-content {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Badges — BI .badge: 0.75rem / weight 700, radius 4px
+|--------------------------------------------------------------------------
+*/
+
+.fi-badge.fi-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tables — BI .table: 1rem (1.125rem on desktop, 1rem here to keep the
+| table columns readable inside the panel)
+|--------------------------------------------------------------------------
+*/
+
+.fi-ta-text {
+    font-size: 1rem;
+}
+
+.fi-ta-header-cell {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Breadcrumbs — 1rem, slate like the rest of the secondary text
+|--------------------------------------------------------------------------
+*/
+
+.fi-breadcrumbs-item-label {
+    font-size: 1rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard widgets — the value echoes the page heading
+|--------------------------------------------------------------------------
+*/
+
+.fi-wi-stats-overview-stat-value {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.fi-wi-stats-overview-stat-label {
+    font-size: 1rem;
+    color: #5c6f82;
+}

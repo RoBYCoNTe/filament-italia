@@ -20,7 +20,7 @@ class FilamentItaliaTheme
     /**
      * Applies all Italia theme configurations to a Filament panel:
      *   - Theme CSS (viteTheme)
-     *   - Primary color from config
+     *   - The full AGID palette (primary, danger, success, warning, info, gray)
      *   - Light mode only
      *   - Self-hosted fonts (Titillium Web, Roboto Mono, Lora)
      *
@@ -31,14 +31,42 @@ class FilamentItaliaTheme
     {
         return $panel
             ->viteTheme(static::themeCssPath())
-            ->colors([
-                'primary' => static::generateColorPalette(config('filament-italia.primary_color')),
-            ])
+            ->colors(static::colors())
             ->darkMode(false)
             ->defaultThemeMode(ThemeMode::Light)
             ->font('Titillium Web', provider: LocalFontProvider::class)
             ->monoFont('Roboto Mono', provider: LocalFontProvider::class)
             ->serifFont('Lora', provider: LocalFontProvider::class);
+    }
+
+    /**
+     * The semantic colours of the panel: every scale of the .italia Design
+     * System, not only the primary one. Filament keeps its own Tailwind palette
+     * for the others, so registering them here is what makes a badge, an alert
+     * or a button wear the .italia green, red, orange and slate.
+     *
+     * The primary stays configurable: a custom `filament-italia.primary_color`
+     * generates the scale from the base; otherwise the AGID Blu Italia scale is
+     * used as-is, so it matches the Tailwind tokens of the theme CSS.
+     *
+     * @return array<string, array<int, string>>
+     */
+    public static function colors(): array
+    {
+        $configuredPrimary = config('filament-italia.primary_color');
+
+        $primary = (is_string($configuredPrimary) && $configuredPrimary !== '' && strcasecmp($configuredPrimary, '#0066cc') !== 0)
+            ? static::generateColorPalette($configuredPrimary)
+            : ItaliaPalette::PRIMARY;
+
+        return [
+            'primary' => $primary,
+            'danger' => ItaliaPalette::DANGER,
+            'success' => ItaliaPalette::SUCCESS,
+            'warning' => ItaliaPalette::WARNING,
+            'info' => ItaliaPalette::INFO,
+            'gray' => ItaliaPalette::GRAY,
+        ];
     }
 
     /**

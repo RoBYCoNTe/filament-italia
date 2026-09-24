@@ -1,0 +1,467 @@
+/*
+|--------------------------------------------------------------------------
+| Components — Bootstrap Italia shape language, mapped onto Filament
+|--------------------------------------------------------------------------
+|
+| Colours, radii and the type scale are not enough: Bootstrap Italia gives its
+| components a shape of their own — flat buttons, form fields drawn with a
+| single bottom border, cards without a border — and without this layer the
+| panel still reads as a different product next to the public pages.
+|
+| This file ports those shapes onto the Filament component classes. The values
+| come from Bootstrap Italia 2.x:
+|   .btn          padding .375rem .75rem, radius 4px, weight 600, no shadow
+|   .btn-sm       padding .25rem .5rem, radius 2px, font .875rem
+|   .btn-lg       padding .5rem 1rem, radius 8px, font 1.125rem
+|   input,select  border none, border-bottom 1px #5c6f82, radius 0,
+|                 focus ring 0 0 0 .25rem rgba(0,102,204,.25)
+|   .badge        padding .25em .4em, font .75rem, weight 700, pill
+|   .card         border none, radius 0, shadow 0 .125rem .25rem rgba(0,0,0,.075)
+|
+| Un-layered, like the rest of the overrides, so it wins over Filament's
+| @layer components without !important.
+*/
+
+/*
+|--------------------------------------------------------------------------
+| Buttons — flat, BI metrics
+|--------------------------------------------------------------------------
+*/
+
+.fi-btn.fi-btn {
+    min-height: 2.25rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    box-shadow: none;
+}
+
+/*
+| Filled *coloured* buttons: Filament picks the shade by contrast, which lands
+| on the 400 step for our palette (a lighter blue than .italia). Bootstrap
+| Italia fills with the 600 step and white text, darkening on hover.
+*/
+.fi-btn.fi-btn.fi-color:not(.fi-outlined) {
+    --bg: var(--color-600, var(--gray-600));
+    --hover-bg: var(--color-700, var(--gray-700));
+    color: #fff;
+}
+
+/*
+| Default gray button: Filament renders it as a **ghost** button (no .fi-color,
+| transparent background + ring + dark label). Bootstrap Italia wants a filled
+| gray .btn-secondary, so we give it the background directly — the coloured
+| rule above only paints `.fi-color` buttons.
+*/
+.fi-btn.fi-btn:not(.fi-outlined):not(.fi-color) {
+    background-color: var(--gray-600);
+    color: #fff;
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: none;
+}
+
+@media (hover: hover) {
+    .fi-btn.fi-btn:not(.fi-outlined):not(.fi-color):hover {
+        background-color: var(--gray-700);
+    }
+}
+
+/*
+| Outlined buttons: border and label in the base colour, like .italia.
+| (The gray one falls back to the AGID gray.)
+*/
+.fi-btn.fi-btn.fi-outlined {
+    color: var(--color-600, var(--gray-600));
+    --tw-ring-color: var(--color-600, var(--gray-600));
+}
+
+.fi-btn.fi-btn.fi-size-xs {
+    min-height: 1.5rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 2px;
+    font-size: 0.875rem;
+}
+
+.fi-btn.fi-btn.fi-size-sm {
+    min-height: 2rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 2px;
+    font-size: 0.875rem;
+}
+
+.fi-btn.fi-btn.fi-size-lg {
+    min-height: 3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 1.125rem;
+}
+
+/*
+| The underline belongs to the page, not to the chrome: the topbar keeps its
+| own boxed field (on the blue bar a transparent field would disappear).
+*/
+
+.fi-input-wrp.fi-input-wrp:not(.fi-topbar *) {
+    border: none;
+    border-bottom: 1px solid #5c6f82;
+    border-radius: 0;
+    --tw-shadow: 0 0 #0000;
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: none;
+}
+
+.fi-input-wrp.fi-input-wrp:not(.fi-topbar *):focus-within {
+    border-bottom-color: var(--color-primary-600);
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: 0 0 0 0.25rem rgba(0, 102, 204, 0.25);
+}
+
+.fi-input.fi-input {
+    padding-block: 0.375rem;
+    padding-inline: 0.5rem;
+}
+
+/*
+| Il select nativo ha gia' il padding di Filament (`py-1.5 ps-3 pe-8`, con lo
+| spazio per la freccia). Non lo tocchiamo: `.fi-select-input` e' anche la
+| classe del *contenitore* della select custom, e un `padding-block` qui
+| aggiungeva 12px di altezza alla wrapper con autocomplete.
+*/
+
+.fi-select-input-btn.fi-select-input-btn:not(.fi-topbar *) {
+    border-radius: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Badges — pill, bold, compact
+|--------------------------------------------------------------------------
+*/
+
+.fi-badge.fi-badge {
+    padding-block: 0.25rem;
+    padding-inline: 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    border-radius: 9999px;
+}
+
+/*
+| Solid badges, like Bootstrap Italia .bg-* (Filament draws them soft, on a
+| light surface). The background comes from the 600 step registered for every
+| semantic colour, the label goes white; the chrome keeps its own badges.
+*/
+.fi-badge.fi-badge[class*='fi-color-']:not(.fi-topbar *):not(.fi-sidebar *) {
+    background-color: var(--color-600);
+    color: #fff;
+    --tw-ring-color: #00000000;
+}
+
+/*
+| La X di rimozione di una chip. Filament la dipinge con la shade 700, pensata
+| per i badge chiari (soft): sul nostro sfondo pieno 600 sarebbe invisibile,
+| quindi va bianca come l'etichetta.
+*/
+.fi-badge[class*='fi-color-'] .fi-badge-delete-btn > .fi-icon {
+    color: #fff;
+}
+
+.fi-badge[class*='fi-color-'] .fi-badge-delete-btn > .fi-icon:hover,
+.fi-badge[class*='fi-color-'] .fi-badge-delete-btn > .fi-icon:focus-visible {
+    color: rgb(255 255 255 / 80%);
+}
+
+/*
+| La X: il bottone di rimozione si tira a destra di 0.5rem, quindi da solo
+| arriverebbe a filo del bordo. Diamo alla chip un padding a destra pieno e
+| riduciamo di meta' quel tiro, cosi' la X resta staccata dal bordo.
+*/
+.fi-badge.fi-badge:has(.fi-badge-delete-btn) {
+    padding-inline-end: 0.5rem;
+}
+
+.fi-badge .fi-badge-delete-btn {
+    margin-inline-end: -0.25rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Sections / cards — Bootstrap Italia card: no border, flat radius, soft shadow
+|--------------------------------------------------------------------------
+*/
+
+.fi-section:not(.fi-section-not-contained):not(.fi-aside) {
+    border-radius: 0;
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Topbar navigation — keep the items on one line
+|--------------------------------------------------------------------------
+|
+| On a narrow viewport Filament wraps the nav groups, stacking the menu
+| vertically. Bootstrap Italia keeps them inline and lets the bar scroll
+| horizontally instead.
+*/
+
+.fi-topbar-nav-groups {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.fi-topbar-nav-groups > * {
+    flex: 0 0 auto;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Callouts / alerts — Bootstrap Italia alert
+|--------------------------------------------------------------------------
+|
+| BI draws an alert as a white box with a 1px slate border, radius 0, and an
+| 8px accent on the left in the colour of the variant; the icon is an outline
+| glyph in the same colour. Filament tints the background, rounds it and gives
+| the icon a filled badge, so we repaint it.
+*/
+
+/*
+| L'accent e' dichiarato sulla radice del callout (e lo eredita l'icona), non su
+| ogni elemento `.fi-color-*` della pagina.
+*/
+.fi-callout.fi-color-primary { --callout-accent: var(--color-primary-600); }
+.fi-callout.fi-color-success { --callout-accent: var(--color-success-700); }
+.fi-callout.fi-color-warning { --callout-accent: var(--color-warning-700); }
+.fi-callout.fi-color-danger { --callout-accent: var(--color-danger-500); }
+.fi-callout.fi-color-info { --callout-accent: var(--color-info-600); }
+
+.fi-callout.fi-callout {
+    background-color: #fff;
+    border: 1px solid var(--color-info-600);
+    border-left: 8px solid var(--callout-accent, var(--color-info-600));
+    border-radius: 0;
+    padding: 1rem;
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: none;
+}
+
+.fi-callout .fi-callout-icon {
+    color: var(--callout-accent, var(--color-info-600));
+}
+
+/*
+|--------------------------------------------------------------------------
+| Links — Bootstrap Italia underlines the links of the content
+|--------------------------------------------------------------------------
+*/
+
+.fi-link.fi-link:not(.fi-colored) {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Tabs — BI .nav-link: 1rem, weight 600
+|--------------------------------------------------------------------------
+*/
+
+.fi-tabs-item-label {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Campi — stessa altezza e contenuto centrato
+|--------------------------------------------------------------------------
+|
+| Select nativa, select con autocomplete, input testuali e date stanno tutti
+| in una `.fi-input-wrp` (display: flex) alta 2.5rem. Senza `align-items` il
+| contenuto di ciascun campo non viene centrato, e la select con autocomplete
+| (piu' alta) risulta sfalsata rispetto agli altri input. Centriamo il
+| contenuto, cosi' qualunque tipo di campo si allinea allo stesso modo.
+*/
+
+.fi-input-wrp.fi-input-wrp {
+    min-height: 2.5rem;
+    align-items: center;
+}
+
+.fi-select-input .fi-select-input-btn {
+    min-height: 2.25rem;
+    align-items: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Multi-select a chips — spaziatura interna coerente
+|--------------------------------------------------------------------------
+*/
+
+.fi-select-input-btn.fi-select-input-btn {
+    padding-inline-start: calc(var(--spacing) * 3);
+    row-gap: var(--spacing);
+}
+
+.fi-select-input-value-badges-ctn {
+    gap: var(--spacing);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Filtri — i campi restano allineati in alto quando uno è più alto
+|--------------------------------------------------------------------------
+*/
+
+.fi-ta-filters .fi-fo-field-wrp,
+.fi-ta-header-toolbar .fi-fo-field-wrp {
+    align-self: start;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Table container — same card surface
+|--------------------------------------------------------------------------
+*/
+
+.fi-ta-ctn.fi-ta-ctn {
+    border-radius: 0;
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/*
+|--------------------------------------------------------------------------
+| Table pagination — overview on the left, everything else on the right
+|--------------------------------------------------------------------------
+|
+| Filament centres the "records per page" selector in a 1fr/auto/1fr grid.
+| Bootstrap Italia keeps the summary on the left and the controls on the
+| right, so we line them up there instead.
+*/
+
+.fi-pagination.fi-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    column-gap: calc(var(--spacing) * 3);
+}
+
+.fi-pagination .fi-pagination-overview {
+    margin-inline-end: auto;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Pagination — aspetto .italia
+|--------------------------------------------------------------------------
+|
+| Bootstrap Italia disegna il pager come link nudi: nessun contenitore,
+| nessun separatore; le pagine sono in slate (peso 700, 2.5rem), la pagina
+| corrente ha un contorno blu e testo blu, le altre diventano blu al passaggio.
+| Gli "estreMI" (prima/ultima) non si mostrano: le pagine con i puntini bastano.
+*/
+
+.fi-pagination .fi-pagination-items {
+    background-color: transparent;
+    --tw-shadow: 0 0 #0000;
+    --tw-shadow-colored: 0 0 #0000;
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 0 transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.fi-pagination .fi-pagination-item {
+    border-inline-width: 0;
+}
+
+.fi-pagination .fi-pagination-item:first-of-type .fi-pagination-item-btn,
+.fi-pagination .fi-pagination-item:last-of-type .fi-pagination-item-btn {
+    border-radius: 4px;
+}
+
+.fi-pagination .fi-pagination-item[rel='first'],
+.fi-pagination .fi-pagination-item[rel='last'] {
+    display: none;
+}
+
+.fi-pagination .fi-pagination-item-btn {
+    align-items: center;      /* senza questo il numero resta in alto nei 2.5rem */
+    justify-content: center;
+    height: 2.5rem;
+    min-width: 2.5rem;
+    padding: 0;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+.fi-pagination .fi-pagination-item-btn .fi-pagination-item-label {
+    padding-inline: 0;
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 700;
+    color: var(--color-info-600);
+}
+
+.fi-pagination .fi-pagination-item-btn .fi-icon {
+    color: var(--color-info-600);
+}
+
+.fi-pagination .fi-pagination-item-btn:enabled:hover {
+    background-color: transparent;
+}
+
+.fi-pagination .fi-pagination-item-btn:enabled:hover .fi-pagination-item-label,
+.fi-pagination .fi-pagination-item-btn:enabled:hover .fi-icon {
+    color: var(--color-primary-600);
+}
+
+/*
+| Precedente / Successivo come testo, non frecce (come .italia). L'etichetta e'
+| gia' nel `aria-label` del bottone, tradotta dal pacchetto.
+*/
+.fi-pagination .fi-pagination-item[rel='prev'] .fi-pagination-item-icon,
+.fi-pagination .fi-pagination-item[rel='next'] .fi-pagination-item-icon {
+    display: none;
+}
+
+.fi-pagination .fi-pagination-item[rel='prev'] .fi-pagination-item-btn,
+.fi-pagination .fi-pagination-item[rel='next'] .fi-pagination-item-btn {
+    min-width: 0;
+    padding-inline: 0.5rem;
+}
+
+.fi-pagination .fi-pagination-item[rel='prev'] .fi-pagination-item-btn::before,
+.fi-pagination .fi-pagination-item[rel='next'] .fi-pagination-item-btn::before {
+    content: attr(aria-label);
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: 700;
+    white-space: nowrap;
+    color: var(--color-info-600);
+}
+
+.fi-pagination .fi-pagination-item[rel='prev'] .fi-pagination-item-btn:enabled:hover::before,
+.fi-pagination .fi-pagination-item[rel='next'] .fi-pagination-item-btn:enabled:hover::before {
+    color: var(--color-primary-600);
+}
+
+/* La pagina corrente: bordo secondario (slate), senza riempimento. */
+.fi-pagination .fi-pagination-item.fi-active .fi-pagination-item-btn {
+    background-color: transparent;
+    color: var(--color-info-600);
+    box-shadow: inset 0 0 0 1px var(--color-info-600);
+}
+
+.fi-pagination .fi-pagination-item.fi-active .fi-pagination-item-label {
+    color: var(--color-info-600);
+}
