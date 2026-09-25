@@ -258,6 +258,72 @@
 
 /*
 |--------------------------------------------------------------------------
+| Toast — la notifica a comparsa come alert Bootstrap Italia
+|--------------------------------------------------------------------------
+|
+| Le notifiche a comparsa (`.fi-no-notification`, in alto a destra a
+| prescindere dal tipo) indossano lo stesso disegno dell'alert di Bootstrap
+| Italia gia' usato per i callout: fondo bianco, bordo di 1px ardesia,
+| accento di 8px a sinistra nel colore della variante, angoli vivi.
+| Filament le tinge con una tinta chiara della variante, le arrotonda e
+| mette un'ombra sotto: qui tornano ad essere un alert.
+*/
+
+/*
+| L'accento e' dichiarato sulla radice della notifica (lo ereditano il bordo
+| e l'icona), con la stessa mappa dei callout. Lo stato ("->success()" e
+| compagnie) finisce sulla radice come `fi-status-*`, mentre le classi
+| `fi-color-*` stanno sull'icona e sulla radice solo quando il colore e'
+| impostato a mano: la mappa copre entrambe, a parita' di stato vince il
+| colore esplicito. Le notifiche senza stato non hanno nessuna classe: la
+| variabile manca e resta l'ardesia, come l'alert informativo di BI.
+*/
+.fi-no-notification.fi-status-success,
+.fi-no-notification.fi-color-success { --notification-accent: var(--color-success-700); }
+.fi-no-notification.fi-status-warning,
+.fi-no-notification.fi-color-warning { --notification-accent: var(--color-warning-700); }
+.fi-no-notification.fi-status-danger,
+.fi-no-notification.fi-color-danger { --notification-accent: var(--color-danger-500); }
+.fi-no-notification.fi-status-info,
+.fi-no-notification.fi-color-info { --notification-accent: var(--color-info-600); }
+.fi-no-notification.fi-color-primary { --notification-accent: var(--color-primary-600); }
+
+/*
+| Il box: bianco, quadro, bordo pieno; niente ombra ne' ring di Filament.
+| Le notifiche inline (l'elenco del pannello notifiche) restano righe di una
+| lista: il ridisegno tocca solo le comparse.
+*/
+.fi-no-notification.fi-no-notification:not(.fi-inline) {
+    background-color: #fff;
+    border: 1px solid var(--color-info-600);
+    border-left: 8px solid var(--notification-accent, var(--color-info-600));
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/*
+| Il glifo: outline nel colore della variante (Filament lo abbassa a una
+| tinta 400), un po' piu' largo come nel richiamo di 32px di BI.
+*/
+.fi-no-notification .fi-no-notification-icon.fi-color {
+    color: var(--notification-accent, var(--color-info-600));
+}
+
+.fi-no-notification > .fi-no-notification-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/*
+| Il testo: con una variante Filament smorza il corpo al 75%; nell'alert di
+| BI il messaggio e' pieno, solo il titolo pesa di piu'.
+*/
+.fi-no-notification.fi-color .fi-no-notification-body {
+    color: var(--color-gray-700);
+}
+
+/*
+|--------------------------------------------------------------------------
 | Links — Bootstrap Italia underlines the links of the content
 |--------------------------------------------------------------------------
 */

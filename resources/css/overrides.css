@@ -161,6 +161,75 @@
 
 /*
 |--------------------------------------------------------------------------
+| Topbar — la grammatica dell'header AGID del sito pubblico
+|--------------------------------------------------------------------------
+|
+| Stessa identita', ritmo diverso: le voci di navigazione quadrate a tutta
+| altezza, evidenza dello stato attivo con il bordo bianco di 3px sul fondo
+| (niente chip), hover che accende solo il testo, niente icone sulle voci
+| (resta solo il chevron dei gruppi). I dropdown dei gruppi: pannello bianco
+| quadro, la voce toccata dal mouse si tinge del blu piu' chiaro. Lo scorrimento
+| orizzontale della barra resta in components.css.
+*/
+
+/* La lista di navigazione entra a tutta altezza della barra: e' questo che
+   porta il bordo della voce attiva a toccare il fondo, come nella home. */
+.fi-topbar .fi-topbar-nav-groups {
+    align-self: stretch;
+    margin-block: 0;
+}
+
+.fi-topbar .fi-topbar-nav-groups > .fi-topbar-item {
+    display: flex;
+}
+
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item-btn {
+    align-self: stretch;
+    border-radius: 0;
+}
+
+/* Stato attivo: il bordo bianco, non il chip. L'ombra interna disegna i 3px
+   senza spostare il testo. */
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item.fi-active .fi-topbar-item-btn {
+    background-color: transparent;
+    box-shadow: inset 0 -3px 0 0 #fff;
+}
+
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item.fi-active .fi-topbar-item-label {
+    color: #fff;
+}
+
+/* Hover e focus: il testo si accende, il fondo no — come `hover:text-white`
+   nella barra del sito pubblico. */
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item-btn:hover,
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item-btn:focus-visible {
+    background-color: transparent;
+}
+
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item-btn:hover .fi-topbar-item-label,
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item-btn:focus-visible .fi-topbar-item-label {
+    color: #fff;
+}
+
+/* Niente icone sulle voci (la home non le ha); resta il chevron dei gruppi. */
+.fi-topbar .fi-topbar-nav-groups .fi-topbar-item-btn > .fi-icon:not(.fi-topbar-group-toggle-icon) {
+    display: none;
+}
+
+.fi-topbar .fi-dropdown-panel.fi-dropdown-panel {
+    border-radius: 0;
+}
+
+.fi-topbar .fi-dropdown-list-item.fi-dropdown-list-item {
+    border-radius: 0;
+}
+
+.fi-topbar .fi-dropdown-list-item.fi-dropdown-list-item:not(.fi-disabled):not([disabled]):hover {
+    background-color: var(--color-primary-50);
+}
+
+/*
+|--------------------------------------------------------------------------
 | Tenant Menu (company selector)
 |--------------------------------------------------------------------------
 */
@@ -467,9 +536,7 @@
     border-radius: 0;
 }
 
-.fi-no-notification:not(.fi-inline) {
-    border-radius: var(--radius-lg);
-}
+/* L'aspetto della notifica a comparsa (.italia) e' in components.css. */
 
 .fi-wi-stats-overview-stat.fi-wi-stats-overview-stat {
     border-radius: var(--radius-lg);
@@ -478,6 +545,22 @@
 .fi-fo-repeater-item.fi-fo-repeater-item,
 .fi-fo-builder-item.fi-fo-builder-item {
     border-radius: var(--radius-lg);
+}
+
+/*
+| Repeater in modalita' tabella: angoli appena meno tondi del contenitore
+| (rounded-lg invece di rounded-xl), cosi' la tabella non esce dalla card.
+*/
+.fi-fo-table-repeater > table {
+    border-radius: 0.5rem;
+}
+
+.fi-fo-table-repeater > table > thead > tr > th:first-of-type {
+    border-start-start-radius: 0.5rem;
+}
+
+.fi-fo-table-repeater > table > thead > tr > th:last-of-type {
+    border-start-end-radius: 0.5rem;
 }
 
 .fi-simple-main.fi-simple-main {

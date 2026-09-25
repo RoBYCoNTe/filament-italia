@@ -121,7 +121,7 @@ The theme overrides Filament's default component styling via un-layered CSS rule
 
 | Component Area | Override Details |
 |----------------|-----------------|
-| **Topbar** | Primary blue background, white text/icons, ring removal |
+| **Topbar** | Primary blue background, white text/icons, ring removal, AGID public-site header grammar (full-height squared items, 3px white active underline, hover lights the text only, no item icons, squared group dropdowns) |
 | **Sidebar** | Dark blue (`primary-800`) background, white text, custom scrollbar |
 | **Buttons** | `font-weight: 600`, `:active` state, no shadow on outlined, 150ms transition |
 | **Tabs** | AGID underline style (flat, no card), full-width, left-aligned |
@@ -132,7 +132,8 @@ The theme overrides Filament's default component styling via un-layered CSS rule
 | **Pagination** | Active page with `bg-primary-50` |
 | **Form editors** | Toolbar border-radius matching inputs |
 | **Dropdowns** | Tighter `border-radius: 4px` |
-| **Notifications** | `border-radius: 8px` |
+| **Callouts** | Bootstrap Italia alert: white background, 1px slate border, 8px left accent in the variant colour, square corners |
+| **Notifications** | Bootstrap Italia alert as a toast: white box, square corners, 1px slate border, 8px left accent in the variant colour (every status), outline glyph, no shadow; inline notifications keep the list look |
 | **Stats widgets** | `border-radius: 8px` |
 | **Empty states** | Primary-tinted icon background |
 | **Breadcrumbs** | Primary color on hover |
@@ -145,7 +146,9 @@ The theme overrides Filament's default component styling via un-layered CSS rule
 resources/css/
 ├── fonts.css       # @font-face declarations (self-hosted woff2)
 ├── theme.css       # @theme inline block — AGID color/radius/font tokens
-└── overrides.css   # Un-layered component overrides
+├── typography.css  # The .italia type scale mapped onto Filament components
+├── components.css  # Bootstrap Italia component repaints (callouts, pagination…)
+└── overrides.css   # Un-layered structural overrides (topbar, radius, focus…)
 
 resources/fonts/    # Self-hosted woff2 font files (11 files)
 ```
