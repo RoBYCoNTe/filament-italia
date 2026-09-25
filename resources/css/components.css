@@ -44,11 +44,35 @@
 | Filled *coloured* buttons: Filament picks the shade by contrast, which lands
 | on the 400 step for our palette (a lighter blue than .italia). Bootstrap
 | Italia fills with the 600 step and white text, darkening on hover.
+|
+| The white words belong to a surface that is actually painted. A toggle button
+| is a `<label>`, and Filament fills only the chosen one: painting every label
+| white before that is how a row of choices comes out invisible on a white page
+| (white words, white surface — read only when the text is selected).
 */
-.fi-btn.fi-btn.fi-color:not(.fi-outlined) {
+.fi-btn.fi-btn.fi-color:not(.fi-outlined):not(label),
+input:checked + label.fi-btn.fi-btn.fi-color:not(.fi-outlined) {
     --bg: var(--color-600, var(--gray-600));
     --hover-bg: var(--color-700, var(--gray-700));
     color: #fff;
+}
+
+/*
+| A choice that is not chosen: an .italia outline button, because Filament
+| leaves it to the base surface — white on a white page. The grouped variant
+| is left alone: its ring already draws the set.
+*/
+.fi-fo-toggle-buttons:not(.fi-btn-group) .fi-btn.fi-btn:not(.fi-outlined) {
+    background-color: #fff;
+    color: var(--color-800, var(--gray-800));
+    box-shadow: inset 0 0 0 1px var(--color-600, var(--gray-300));
+}
+
+/* The chosen one: filled in the colour of its state, with white words. */
+.fi-fo-toggle-buttons:not(.fi-btn-group) input:checked + label.fi-btn.fi-btn:not(.fi-outlined) {
+    background-color: var(--color-600, var(--gray-600));
+    color: #fff;
+    box-shadow: inset 0 0 0 1px var(--color-600, var(--gray-600));
 }
 
 /*
