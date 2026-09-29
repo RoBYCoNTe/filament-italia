@@ -84,6 +84,12 @@
 
 .fi-topbar .fi-user-menu-trigger {
     color: rgba(255, 255, 255, 0.75);
+    /*
+    | The trigger holds the round avatar and nothing else: a squared hover
+    | background would show its corners around the face. The shape follows the
+    | face — the halo is a circle, exactly like the avatar it wraps.
+    */
+    border-radius: 9999px;
 }
 
 .fi-topbar .fi-user-menu-trigger:hover {
@@ -98,6 +104,20 @@
 .fi-topbar .fi-database-notifications-trigger:hover {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.15);
+}
+
+/*
+| Filament paints a white rounded square behind the badge of an icon button
+| (`.fi-icon-btn-badge-ctn`), so the badge reads against the button. In the
+| topbar the badge keeps the light (soft) style, and that halo shows up as a
+| second, overlapping shape — a white square around the round count. The badge
+| carries its own background: here the halo has no job, it only doubles the
+| shape. Same for the badge containers of buttons and links.
+*/
+.fi-topbar .fi-icon-btn-badge-ctn,
+.fi-topbar .fi-btn-badge-ctn,
+.fi-topbar .fi-link-badge-ctn {
+    background-color: transparent;
 }
 
 .fi-topbar .fi-global-search-trigger {
