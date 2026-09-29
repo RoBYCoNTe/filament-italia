@@ -164,17 +164,23 @@
 
     /*
     |--------------------------------------------------------------------------
-    | Border Radius — AGID Spacing
+    | Border Radius — the .italia does not round
     |--------------------------------------------------------------------------
     |
-    | Derived from the AGID radius tokens:
-    | https://designers.italia.it/design-system/fondamenti/bordi-e-raggi/
+    | The design system squares its surfaces: the radius is 0 on cards, buttons,
+    | fields, modals and panels. Every radius token is 0 here, so it disappears
+    | everywhere in one line.
+    |
+    | `rounded-full` (avatars, pills) stays: it uses 9999px, not a token — the
+    | face of a person is round, not a corner to square.
+    |
+    | Reference: https://designers.italia.it/design-system/fondamenti/bordi-e-raggi/
     */
 
-    --radius-xs: 2px;
-    --radius-sm: 4px;
-    --radius-md: 4px;
-    --radius-lg: 8px;
-    --radius-xl: 16px;
-    --radius-2xl: 24px;
+    --radius-xs: 0;
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-xl: 0;
+    --radius-2xl: 0;
 }
