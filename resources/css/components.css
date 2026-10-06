@@ -15,7 +15,7 @@
 |   .btn-lg       padding .5rem 1rem, radius 8px, font 1.125rem
 |   input,select  border none, border-bottom 1px #5c6f82, radius 0,
 |                 focus ring 0 0 0 .25rem rgba(0,102,204,.25)
-|   .badge        padding .25em .4em, font .75rem, weight 700, pill
+|   .badge        padding .25em .4em, font .75rem, weight 700, radius 4px
 |   .card         border none, radius 0, shadow 0 .125rem .25rem rgba(0,0,0,.075)
 |
 | Un-layered, like the rest of the overrides, so it wins over Filament's
@@ -50,11 +50,19 @@
 | is a `<label>`, and Filament fills only the chosen one: painting every label
 | white before that is how a row of choices comes out invisible on a white page
 | (white words, white surface — read only when the text is selected).
+|
+| Filament colours the label with `color` but the icon with `text-(--text)`:
+| without the variables below the icon keeps the dark shade Filament chose for
+| contrast (near black) and floats on the coloured surface while the words are
+| white. Both modes are pinned, because the icon rule reads `--dark-text` in
+| dark mode.
 */
 .fi-btn.fi-btn.fi-color:not(.fi-outlined):not(label),
 input:checked + label.fi-btn.fi-btn.fi-color:not(.fi-outlined) {
     --bg: var(--color-600, var(--gray-600));
     --hover-bg: var(--color-700, var(--gray-700));
+    --text: #fff;
+    --dark-text: #fff;
     color: #fff;
 }
 
@@ -160,7 +168,7 @@ input:checked + label.fi-btn.fi-btn.fi-color:not(.fi-outlined) {
 
 /*
 |--------------------------------------------------------------------------
-| Badges — pill, bold, compact
+| Badges — smussati, bold, compact
 |--------------------------------------------------------------------------
 */
 
@@ -170,7 +178,12 @@ input:checked + label.fi-btn.fi-btn.fi-color:not(.fi-outlined) {
     font-size: 0.75rem;
     line-height: 1rem;
     font-weight: 700;
-    border-radius: 0;
+    /*
+    | Bootstrap Italia smussa il badge con lo scalino "smooth" dei raggi
+    | (--bsi-badge-border-radius: var(--bsi-radius-smooth) = 4px): non quadrato,
+    | e non pill di default — il pill e' la variante opt-in .rounded-pill.
+    */
+    border-radius: 4px;
 }
 
 /*

@@ -131,6 +131,13 @@
 
 .fi-topbar .fi-icon-btn {
     color: rgba(255, 255, 255, 0.7);
+    /*
+    | I bottoni di sola icona della barra (larghezza contenuto, notifiche,
+    | ricerca) sono tondi come le icone di utilita' dell'header AGID: il velo
+    | di hover/focus e' un cerchio, non un quadrato. Stessa forma del trigger
+    | del menu utente, che avvolge l'avatar.
+    */
+    border-radius: 9999px;
 }
 
 .fi-topbar .fi-icon-btn:hover {
